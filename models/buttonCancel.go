@@ -1,11 +1,21 @@
 package models
 
+import "errors"
+
 type CancelButton struct {
 	button
 }
 
-func (s CancelButton) Validate() (bool, error) {
+func (ths *CancelButton) Validate() (bool, []error) {
 	// CancelButton validation implementation
+	var errs []error
+	if ths.ButtonBlockObject.Type != MBTTCancel {
+		errs = append(errs, errors.New("invalid cancel button block object type"))
+	}
+
+	if len(errs) > 0 {
+		return false, errs
+	}
 
 	return true, nil
 }

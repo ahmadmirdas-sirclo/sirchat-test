@@ -1,12 +1,22 @@
 package models
 
+import "errors"
+
 type ActionButton struct {
 	button
 	Action *Action `json:"action"`
 }
 
-func (s ActionButton) Validate() (bool, error) {
+func (ths *ActionButton) Validate() (bool, []error) {
 	// ActionButton validation implementation
+	var errs []error
+	if ths.ButtonBlockObject.Type != MBTTAction {
+		errs = append(errs, errors.New("invalid action button block object type"))
+	}
+
+	if len(errs) > 0 {
+		return false, errs
+	}
 
 	return true, nil
 }

@@ -1,5 +1,7 @@
 package models
 
+import "errors"
+
 type InputBlockObjectType string
 
 const (
@@ -36,6 +38,14 @@ type InputBlockOptionsObject struct {
 
 func (s InputBlock) Validate() (bool, []error) {
 	// InputBlock validation implementation
+	var errs []error
+	if s.Type != MBTInput {
+		errs = append(errs, errors.New("invalid input block type"))
+	}
+
+	if len(errs) > 0 {
+		return false, errs
+	}
 
 	return true, nil
 }

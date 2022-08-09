@@ -38,8 +38,12 @@ type TextBlockObject struct {
 func (s TextBlock) Validate() (bool, []error) {
 	// TextBlock validation implementation
 	var errs []error
+	if s.Type != MBTText {
+		errs = append(errs, errors.New("invalid text block type"))
+	}
+
 	if s.Text.Body == "" {
-		errs = append(errs, errors.New("body is missing"))
+		errs = append(errs, errors.New("text block body is missing"))
 	}
 
 	if len(errs) > 0 {

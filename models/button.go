@@ -2,7 +2,7 @@ package models
 
 type IButton interface {
 	GetType() ButtonBlockObjectType
-	Validate() (bool, error)
+	Validate() (bool, []error)
 }
 
 // `button` is the base struct for every other button type. It is meant
